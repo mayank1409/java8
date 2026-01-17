@@ -8,16 +8,24 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Demonstrates stream operations with filter and collect (toMap).
+ * Creates a map of student first names to their hobbies based on CGPA criteria.
+ */
 public class Demo1 {
 
     public static void main(String[] args) {
-        List<Student> studentList = StudentUtils.getStudentList();
+        List<Student> students = StudentUtils.getStudentList();
 
-        Predicate<Student> studentCgpaPredicate = student -> student.getCgpa() > 8.0;
+        // Predicate: Students with CGPA > 8.0
+        Predicate<Student> highCgpa = student -> student.getCgpa() > 8.0;
 
-        Map<String, List<String>> map = studentList.stream()
-                .filter(studentCgpaPredicate)
+        // Stream: filter -> collect into Map
+        Map<String, List<String>> studentNameToHobbies = students.stream()
+                .filter(highCgpa)
                 .collect(Collectors.toMap(Student::getFirstName, Student::getHobbies));
-        System.out.println(map);
+        
+        System.out.println("Students with CGPA > 8.0 and their hobbies:");
+        System.out.println(studentNameToHobbies);
     }
 }

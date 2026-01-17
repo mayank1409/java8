@@ -8,51 +8,72 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
+/**
+ * Demonstrates groupingBy collector for grouping stream elements by key.
+ * Shows variations: simple grouping, conditional grouping, counting, and aggregation operations.
+ */
 public class StreamsGroupingByDemo {
 
     public static void main(String[] args) {
 
-        Map<String, List<Student>> collect = StudentUtils.getStudentList().stream()
+        // Grouping by gender
+        System.out.println("===== Grouping by Gender =====");
+        Map<String, List<Student>> genderGroups = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(Student::getGender));
-        System.out.println(collect);
+        System.out.println(genderGroups);
 
-        List<List<String>> list = StudentUtils.getStudentList().stream()
+        // Grouping hobbies by list size
+        System.out.println("\n===== Hobbies grouped by size =====");
+        List<List<String>> hobbiesList = StudentUtils.getStudentList().stream()
                 .map(Student::getHobbies)
                 .sorted(Comparator.comparing(List::size))
                 .collect(toList());
-        System.out.println(list);
+        System.out.println(hobbiesList);
 
-        Map<String, List<Student>> map = StudentUtils.getStudentList().stream()
+        // Conditional grouping: Outstanding vs Average
+        System.out.println("\n===== Conditional grouping: Outstanding vs Average (CGPA > 9) =====");
+        Map<String, List<Student>> performanceGroups = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(student -> student.getCgpa() > 9 ? "OUTSTANDING" : "AVERAGE"));
 
-        List<String> outstandingStudents = map.get("OUTSTANDING").stream().map(Student::getFirstName).collect(Collectors.toList());
-        System.out.println(outstandingStudents);
+        List<String> outstandingStudents = performanceGroups.get("OUTSTANDING").stream()
+                .map(Student::getFirstName)
+                .collect(Collectors.toList());
+        System.out.println("Outstanding: " + outstandingStudents);
 
-        List<String> averageStudents = map.get("AVERAGE").stream().map(Student::getFirstName).collect(Collectors.toList());
-        System.out.println(averageStudents);
+        List<String> averageStudents = performanceGroups.get("AVERAGE").stream()
+                .map(Student::getFirstName)
+                .collect(Collectors.toList());
+        System.out.println("Average: " + averageStudents);
 
-        Map<String, Integer> map1 = StudentUtils.getStudentList().stream()
+        // Grouping with summingInt collector
+        System.out.println("\n===== Grouping with summingInt (Total notebooks per student) =====");
+        Map<String, Integer> notebooksByStudent = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(Student::getFirstName,
                         summingInt(Student::getNotebooks)));
-        System.out.println(map1);
+        System.out.println(notebooksByStudent);
 
-        LinkedHashMap<String, Integer> collect1 = StudentUtils.getStudentList().stream()
+        // Grouping with custom map type (LinkedHashMap preserves insertion order)
+        System.out.println("\n===== Grouping with LinkedHashMap (preserves insertion order) =====");
+        LinkedHashMap<String, Integer> orderedNotebooks = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(Student::getFirstName, LinkedHashMap::new,
                         summingInt(Student::getNotebooks)));
-        System.out.println(collect1);
+        System.out.println(orderedNotebooks);
 
-        Map<String, Optional<Student>> collect2 = StudentUtils.getStudentList().stream()
+        // Grouping with minBy collector
+        System.out.println("\n===== Grouping with minBy (Lowest CGPA by performance category) =====");
+        Map<String, Optional<Student>> minCgpaByCategory = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(student -> student.getCgpa() > 9 ? "OUTSTANDING" : "AVERAGE",
                         minBy(Comparator.comparing(Student::getCgpa))));
 
-        System.out.println(collect2.get("OUTSTANDING").get().getFirstName());
-        System.out.println(collect2.get("AVERAGE").get().getFirstName());
+        System.out.println("Min CGPA (Outstanding): " + minCgpaByCategory.get("OUTSTANDING").get().getFirstName());
+        System.out.println("Min CGPA (Average): " + minCgpaByCategory.get("AVERAGE").get().getFirstName());
 
-        Map<String, Student> collect3 = StudentUtils.getStudentList().stream()
+        // Grouping with collectingAndThen (maxBy with unwrapping)
+        System.out.println("\n===== Grouping with collectingAndThen (Highest CGPA by category) =====");
+        Map<String, Student> maxCgpaByCategory = StudentUtils.getStudentList().stream()
                 .collect(groupingBy(student -> student.getCgpa() > 9 ? "OUTSTANDING" : "AVERAGE",
                         collectingAndThen(maxBy(Comparator.comparing(Student::getCgpa)), Optional::get)));
 
-        System.out.println(collect3.get("OUTSTANDING").getFirstName());
-
+        System.out.println("Max CGPA (Outstanding): " + maxCgpaByCategory.get("OUTSTANDING").getFirstName());
     }
 }

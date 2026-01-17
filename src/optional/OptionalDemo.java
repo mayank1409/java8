@@ -5,54 +5,85 @@ import functional.utils.StudentUtils;
 
 import java.util.Optional;
 
-
+/**
+ * Demonstrates Java 8 Optional API for handling null values elegantly.
+ * Shows methods: map, orElse, orElseGet, ifPresent, filter, flatMap, isPresent, isEmpty, of, empty.
+ */
 public class OptionalDemo {
 
+    /**
+     * Helper method: Get student name with default fallback.
+     * @return student first name or "Default" if not found
+     */
     public static String getStudentName() {
         Optional<Student> optional = Optional.ofNullable(StudentUtils.studentSupplier2.get());
-        return optional.map(Student::getFirstName).orElseGet(() ->"Default");
+        return optional.map(Student::getFirstName).orElseGet(() -> "Default");
     }
 
+    /**
+     * Helper method: Get optional string value.
+     * @return Optional containing "Hello, World"
+     */
     public static Optional<String> getLength() {
         return Optional.ofNullable("Hello, World");
     }
 
     public static void main(String[] args) {
-        System.out.println("Length of Name : " + getStudentName() + " is " + getStudentName().length());
+        // Example 1: map() and orElseGet()
+        System.out.println("===== Example 1: map() and orElseGet() =====");
+        System.out.println("Name: " + getStudentName());
+        System.out.println("Length: " + getStudentName().length());
 
+        // Example 2: isPresent() with conditional
+        System.out.println("\n===== Example 2: isPresent() with conditional =====");
         if (getLength().isPresent()) {
-            System.out.println("Length = " + getLength().get().length());
+            System.out.println("String present - Length: " + getLength().get().length());
         } else {
-            System.out.println("Length = 0");
+            System.out.println("String not present");
         }
 
-        Optional<String> s = Optional.of("Hello, World");
-        if (s.isPresent()) {
-            System.out.println(s.get().toUpperCase());
+        // Example 3: Optional.of() - guaranteed non-null value
+        System.out.println("\n===== Example 3: Optional.of() (non-null guarantee) =====");
+        Optional<String> nonNullString = Optional.of("Hello, World");
+        if (nonNullString.isPresent()) {
+            System.out.println("Value: " + nonNullString.get().toUpperCase());
         }
 
+        // Example 4: Optional.empty() and isEmpty()
+        System.out.println("\n===== Example 4: Optional.empty() and isEmpty() =====");
         Optional<Object> empty = Optional.empty();
         if (empty.isEmpty()) {
-            System.out.println("Object is empty!");
+            System.out.println("Optional is empty!");
         }
 
+        // Example 5: map() with orElse()
+        System.out.println("\n===== Example 5: map() with orElse() =====");
         Optional<Student> student = Optional.ofNullable(StudentUtils.studentSupplier.get());
         String name = student.map(Student::getFirstName).orElse("Default");
-        System.out.println(name);
+        System.out.println("Student name (orElse): " + name);
 
-        Optional<Student> student3 = Optional.ofNullable(StudentUtils.studentSupplier2.get());
-        String name3 = student3.map(Student::getFirstName).orElseGet(()-> "Default");
-        System.out.println(name3);
+        // Example 6: map() with orElseGet() - lazy evaluation
+        System.out.println("\n===== Example 6: map() with orElseGet() (lazy evaluation) =====");
+        Optional<Student> student2 = Optional.ofNullable(StudentUtils.studentSupplier2.get());
+        String name2 = student2.map(Student::getFirstName).orElseGet(() -> "Default");
+        System.out.println("Student name (orElseGet): " + name2);
 
-        Optional<Student> optionalStudent = Optional.ofNullable(StudentUtils.studentSupplier.get());
-        optionalStudent.filter(tempStudent -> tempStudent.getFirstName().length() > 4).ifPresent(tempStudent -> System.out.println(tempStudent.getCgpa()));
+        // Example 7: filter() with predicate
+        System.out.println("\n===== Example 7: filter() with predicate (name length > 4) =====");
+        Optional<Student> student3 = Optional.ofNullable(StudentUtils.studentSupplier.get());
+        student3.filter(s -> s.getFirstName().length() > 4)
+                .ifPresent(s -> System.out.println("Filtered student CGPA: " + s.getCgpa()));
 
-        Optional<Student> optionalStudent2 = Optional.ofNullable(StudentUtils.studentSupplier2.get());
-        if (optionalStudent2.isPresent()) {
-            System.out.println(optionalStudent2.map(Student::getFirstName).get());
+        // Example 8: ifPresent() action
+        System.out.println("\n===== Example 8: ifPresent() action =====");
+        Optional<Student> student4 = Optional.ofNullable(StudentUtils.studentSupplier2.get());
+        if (student4.isPresent()) {
+            System.out.println("Student found: " + student4.map(Student::getFirstName).get());
         }
 
-        Optional<Student> optionalStudent3 = Optional.ofNullable(StudentUtils.studentSupplier.get());
-        optionalStudent3.flatMap(Student::getBike).ifPresent(System.out::println);
+        // Example 9: flatMap() - chaining Optionals
+        System.out.println("\n===== Example 9: flatMap() (chaining Optionals) =====");
+        Optional<Student> student5 = Optional.ofNullable(StudentUtils.studentSupplier.get());
+        student5.flatMap(Student::getBike).ifPresent(System.out::println);
     }
 }

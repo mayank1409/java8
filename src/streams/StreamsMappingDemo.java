@@ -8,17 +8,23 @@ import java.util.Set;
 
 import static java.util.stream.Collectors.*;
 
+/**
+ * Demonstrates mapping collector for transforming and collecting stream elements.
+ * Shows variations: mapping to List and mapping to Set.
+ */
 public class StreamsMappingDemo {
 
     public static void main(String[] args) {
-        List<String> nameList = StudentUtils.getStudentList().stream()
+        // Mapping to List
+        System.out.println("===== Mapping to List =====");
+        List<String> firstNamesList = StudentUtils.getStudentList().stream()
                 .collect(mapping(Student::getFirstName, toList()));
-        System.out.println(nameList);
+        System.out.println("First names (List): " + firstNamesList);
 
-        Set<String> nameSet = StudentUtils.getStudentList().stream()
+        // Mapping to Set
+        System.out.println("\n===== Mapping to Set (removes duplicates) =====");
+        Set<String> firstNamesSet = StudentUtils.getStudentList().stream()
                 .collect(mapping(Student::getFirstName, toSet()));
-        System.out.println(nameSet);
-
-
+        System.out.println("First names (Set): " + firstNamesSet);
     }
 }

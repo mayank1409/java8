@@ -2,6 +2,10 @@ package optional;
 
 import java.util.StringJoiner;
 
+/**
+ * Bike POJO representing a vehicle with name and model.
+ * Used in Optional demonstrations to show handling of null values.
+ */
 public class Bike {
 
     private String name;

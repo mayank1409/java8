@@ -10,15 +10,25 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
+/**
+ * Demonstrates partitioningBy collector for dividing stream elements into two groups.
+ * Shows variations: partitioning into List and partitioning into Set.
+ */
 public class StreamsPartitioningDemo {
 
     public static void main(String[] args) {
-        Map<Boolean, List<Student>> collect = StudentUtils.getStudentList().stream()
+        // Partitioning into List by CGPA threshold
+        System.out.println("===== Partitioning by CGPA > 9 (into List) =====");
+        Map<Boolean, List<Student>> partitionedLists = StudentUtils.getStudentList().stream()
                 .collect(Collectors.partitioningBy(student -> student.getCgpa() > 9));
-        System.out.println(collect);
+        System.out.println("Outstanding (CGPA > 9): " + partitionedLists.get(true).size() + " students");
+        System.out.println("Average (CGPA <= 9): " + partitionedLists.get(false).size() + " students");
 
-        Map<Boolean, Set<Student>> collect2 = StudentUtils.getStudentList().stream()
+        // Partitioning into Set by CGPA threshold
+        System.out.println("\n===== Partitioning by CGPA > 9 (into Set) =====");
+        Map<Boolean, Set<Student>> partitionedSets = StudentUtils.getStudentList().stream()
                 .collect(Collectors.partitioningBy(student -> student.getCgpa() > 9, toSet()));
-        System.out.println(collect2);
+        System.out.println("Outstanding students: " + partitionedSets.get(true));
+        System.out.println("Average students: " + partitionedSets.get(false));
     }
 }

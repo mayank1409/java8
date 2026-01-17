@@ -9,25 +9,38 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
+/**
+ * Demonstrates BiPredicate usage combining multiple conditions.
+ * Filters and displays students based on CGPA and hobby criteria.
+ */
 public class BiPredicateDemo1 {
 
-    private static final List<String> HOBBIES = Arrays.asList("swimming", "news", "Tennis");
-    private static BiPredicate<Double, List<String>> biPredicate = (cgpa, hobbies) -> cgpa > 7.0 && HOBBIES.containsAll(hobbies);
+    private static final List<String> REQUIRED_HOBBIES = Arrays.asList("swimming", "news", "Tennis");
 
-    private static BiConsumer<String, List<String>> biConsumer = (name, hobbies) -> System.out.println(name + " " + hobbies);
+    // BiPredicate: CGPA > 7.0 AND student has all required hobbies
+    private static BiPredicate<Double, List<String>> cgpaAndHobbiesPredicate =
+        (cgpa, hobbies) -> cgpa > 7.0 && REQUIRED_HOBBIES.containsAll(hobbies);
 
-    private static Consumer<Student> studentConsumer = student -> {
-        if (biPredicate.test(student.getCgpa(), student.getHobbies())) {
-            biConsumer.accept(student.getFirstName(), student.getHobbies());
+    // BiConsumer: Print student name and hobbies
+    private static BiConsumer<String, List<String>> printNameAndHobbies =
+        (name, hobbies) -> System.out.println(String.format("%s's hobbies: %s", name, hobbies));
+
+    // Consumer: Filter and print students using the predicate
+    private static Consumer<Student> filterAndPrintStudent = student -> {
+        if (cgpaAndHobbiesPredicate.test(student.getCgpa(), student.getHobbies())) {
+            printNameAndHobbies.accept(student.getFirstName(), student.getHobbies());
         }
     };
 
     public static void main(String[] args) {
-        namesAndHobbiesUsingCondition();
+        System.out.println("Students with CGPA > 7.0 and required hobbies:");
+        printQualifyingStudents();
     }
 
-    private static void namesAndHobbiesUsingCondition() {
-        List<Student> studentList = StudentUtils.getStudentList();
-        studentList.stream().forEach(studentConsumer);
+    /**
+     * Filters and prints students meeting the criteria.
+     */
+    private static void printQualifyingStudents() {
+        StudentUtils.getStudentList().forEach(filterAndPrintStudent);
     }
 }

@@ -8,24 +8,36 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ * Demonstrates combining Predicate and BiConsumer using functional composition.
+ * Filters students by CGPA threshold and prints their information.
+ */
 public class Demo1 {
 
-    private static Predicate<Student> studentPredicate = student -> student.getCgpa() > 9.0;
+    // Predicate: Select students with CGPA > 9.0
+    private static Predicate<Student> highCgpaPredicate = student -> student.getCgpa() > 9.0;
 
-    private static BiConsumer<String, List<String>> biConsumer = (name, hobbies) -> System.out.println(name + " " + hobbies);
+    // BiConsumer: Print student name and hobbies
+    private static BiConsumer<String, List<String>> printNameAndHobbies =
+        (name, hobbies) -> System.out.println(name + " - " + hobbies);
 
-    private static Consumer<Student> studentConsumer = student -> {
-        if (studentPredicate.test(student)) {
-            biConsumer.accept(student.getFirstName()+ " " + student.getLastName(), student.getHobbies());
+    // Consumer: Filter student and print if predicate is satisfied
+    private static Consumer<Student> filterAndPrint = student -> {
+        if (highCgpaPredicate.test(student)) {
+            String fullName = student.getFirstName() + " " + student.getLastName();
+            printNameAndHobbies.accept(fullName, student.getHobbies());
         }
     };
 
     public static void main(String[] args) {
-        printNameAndHobbies();
+        System.out.println("Students with CGPA > 9.0:");
+        printHighCgpaStudents();
     }
 
-    public static void printNameAndHobbies() {
-        List<Student> studentList = StudentUtils.getStudentList();
-        studentList.forEach(studentConsumer);
+    /**
+     * Prints names and hobbies of students meeting the CGPA criteria.
+     */
+    public static void printHighCgpaStudents() {
+        StudentUtils.getStudentList().forEach(filterAndPrint);
     }
 }

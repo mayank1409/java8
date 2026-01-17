@@ -7,37 +7,52 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Demonstrates Predicate usage with logical operations.
+ * Shows and, or, negate operations for combining predicates.
+ */
 public class PredicateDemo1 {
 
-    private static final Predicate<Integer> evenPredicate = i -> i % 2 == 0;
-    private static final Predicate<Integer> divisibleBy5 = i -> i % 5 == 0;
-    private static final Predicate<Student> cgpaGE7 = student -> student.getCgpa() > 7.0;
-    private static final List<String> HOBBIES = Arrays.asList("swimming", "news", "Tennis");
-    private static final Predicate<Student> hobbiesPredicate = student -> HOBBIES.containsAll(student.getHobbies());
+    // Integer predicates
+    private static final Predicate<Integer> isEven = num -> num % 2 == 0;
+    private static final Predicate<Integer> isDivisibleBy5 = num -> num % 5 == 0;
+
+    // Student predicates
+    private static final Predicate<Student> hasMinimuCgpa = student -> student.getCgpa() > 7.0;
+    private static final List<String> REQUIRED_HOBBIES = Arrays.asList("swimming", "news", "Tennis");
+    private static final Predicate<Student> hasRequiredHobbies =
+        student -> student.getHobbies() != null && REQUIRED_HOBBIES.containsAll(student.getHobbies());
 
     public static void main(String[] args) {
+        // Test integer predicates
+        System.out.println("Integer Predicate Tests:");
+        System.out.println("10 is even: " + isEven.test(10));
+        System.out.println();
 
-        boolean b = evenPredicate.test(10);
-        System.out.println(b);
+        // AND operation
+        System.out.println("12 is divisible by 5 AND even: " +
+            isDivisibleBy5.and(isEven).test(12));
+        System.out.println("10 is divisible by 5 AND even: " +
+            isDivisibleBy5.and(isEven).test(10));
+        System.out.println();
 
-        boolean b1 = divisibleBy5.and(evenPredicate).test(12);
-        System.out.println(b1);
+        // OR operation
+        System.out.println("12 is divisible by 5 OR even: " +
+            isDivisibleBy5.or(isEven).test(12));
+        System.out.println();
 
-        boolean b2 = divisibleBy5.or(evenPredicate).test(12);
-        System.out.println(b2);
+        // NEGATE operation
+        System.out.println("NOT (12 is divisible by 5 OR even): " +
+            isDivisibleBy5.or(isEven).negate().test(12));
+        System.out.println();
 
-        boolean b3 = divisibleBy5.or(evenPredicate).negate().test(12);
-        System.out.println(b3);
-
-
+        // Student filtering
+        System.out.println("\nStudent Predicate Tests:");
+        System.out.println("Students with CGPA >= 7.0 and required hobbies:");
         List<Student> studentList = StudentUtils.getStudentList();
-
-        studentList.forEach(student -> {
-            if (cgpaGE7.and(hobbiesPredicate).test(student)) {
-                System.out.println(student);
-            }
-        });
-
-
+        studentList.stream()
+            .filter(hasMinimuCgpa.and(hasRequiredHobbies))
+            .forEach(student -> System.out.println("  " + student.getFirstName() + " " +
+                student.getLastName() + " (CGPA: " + student.getCgpa() + ")"));
     }
 }

@@ -3,32 +3,52 @@ package lambdas;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+/**
+ * Demonstrates stream operations and sorting using lambda expressions.
+ * Shows sorting employees by salary in descending order using Comparator and streams.
+ */
 public class Demo2 {
+    
     public static void main(String[] args) {
-        List<Employee> employeeList = Arrays.asList(new Employee("John Doe", "John@doe.com", Double.valueOf(10000)),
-                new Employee("Paul Doe", "Paul@doe.com", Double.valueOf(20000)),
-                new Employee("Shaun Doe", "Shaun@doe.com", Double.valueOf(10000)),
-                new Employee("Chad Doe", "Chad@doe.com", Double.valueOf(30000)));
+        // Create employee list
+        List<Employee> employees = Arrays.asList(
+            new Employee("John Doe", "john@example.com", 10000.0),
+            new Employee("Paul Doe", "paul@example.com", 20000.0),
+            new Employee("Shaun Doe", "shaun@example.com", 10000.0),
+            new Employee("Chad Doe", "chad@example.com", 30000.0)
+        );
 
-
-        List<Employee> employeeList1 = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).collect(Collectors.toList());
-        System.out.println(employeeList1);
+        // Sort employees by salary in descending order using stream and method reference
+        List<Employee> sortedByDescendingSalary = employees.stream()
+            .sorted(Comparator.comparing(Employee::getSalary).reversed())
+            .collect(Collectors.toList());
+        
+        System.out.println("Employees sorted by salary (highest to lowest):");
+        sortedByDescendingSalary.forEach(System.out::println);
     }
 }
 
+/**
+ * Employee POJO with name, email, and salary information.
+ */
 class Employee {
     private String name;
     private String email;
     private Double salary;
 
+    /**
+     * Constructor to create an Employee with all details.
+     */
     public Employee(String name, String email, Double salary) {
         this.name = name;
         this.email = email;
         this.salary = salary;
     }
 
+    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -55,8 +75,10 @@ class Employee {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("name : ").append(name);
-        return sb.toString();
+        return new StringJoiner(", ", Employee.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("email='" + email + "'")
+                .add("salary=" + salary)
+                .toString();
     }
 }

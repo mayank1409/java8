@@ -6,17 +6,17 @@ package multipleinheritance;
  */
 public interface IntermediateHierarchyInterface extends BaseHierarchyInterface {
     /**
-     * New default method unique to Interface2.
+     * New default method unique to IntermediateHierarchyInterface.
      */
     default void methodB() {
-        System.out.println("Interface2.methodB()");
+        System.out.println("IntermediateHierarchyInterface.methodB()");
     }
 
     /**
-     * Override methodA from Interface1 with different implementation.
+     * Override methodA from BaseHierarchyInterface with different implementation.
      */
     @Override
     default void methodA() {
-        System.out.println("Interface2.methodA() - overridden");
+        System.out.println("IntermediateHierarchyInterface.methodA() - overridden");
     }
 }

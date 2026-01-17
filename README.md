@@ -24,32 +24,49 @@ Master the most significant features of Java 8 that transformed how we write Jav
 ```
 src/
 ├── datetime/                 # Java 8 Date & Time API (9 files)
-│   ├── LocalDateDemo2.java
-│   ├── LocalTimeDemo1.java
-│   ├── ZonedDateTimeDemo1.java
-│   ├── InstantDemo1.java
-│   └── ... and 4 more
-│
-├── demo/                     # Foundational concepts
-│   └── Lecture1.java, Lecture2.java
-│
-├── functional/               # Functional Programming (12 files)
+│   ├── CustomDateFormattingDemo.java
+│   ├── DurationCalculationsDemo.java
+│   ├── InstantTimestampDemo.java
+│   ├── JavaTimeAPIIntroductionDemo.java
+│   ├── LegacyDateConversionDemo.java
+│   ├── LocalDateOperationsDemo.java
+│   ├── LocalTimeOperationsDemo.java
+│   ├── PeriodCalculationsDemo.java
+│   └── ZonedDateTimeWithTimezoneDemo.java
+│1 files)
 │   ├── utils/
 │   │   ├── Student.java      # Entity class
 │   │   └── StudentUtils.java # Data utilities
+│   ├── bipredicate/
+│   │   └── BiPredicateComparisonDemo.java
+│   ├── consumerandpredicate/
+│   │   └── PredicateWithConsumerDemo.java
+│   ├── consumers/
+│   │   ├── BiConsumerOperationsDemo.java
+│   │   └── ConsumerSideEffectsDemo.java
+│   ├── function/
+│   │   ├── BiFunctionTransformationDemo.java
+│   │   └── FunctionTransformationDemo.java
+│   ├── operator/
+│   │   └── UnaryOperatorTransformationDemo.java
+│   ├── EmployeeSortingWithStreamsDemo.java
+│   ├── LambdaWithRunnableDemo.java
+│   └── LocalVarsDemo.java
+│       └── SupplierLazyEvaluationDemo.java
 │   ├── consumers/            # Consumer<T>, BiConsumer<T, U>
-│   ├── predicate/            # Predicate<T>, BiPredicate<T, U>
-│   ├── function/             # Function<T, R>, BiFunction<T, U, R>
-│   ├── supplier/             # Supplier<T>
+│   ├── CollectionsVsDefaultMethodsDemo.java
+│   ├── ComparatorWithMethodReferencesDemo.java
+│   └── DefaultAndStaticMethodsInInterfacesDemo   # Supplier<T>
 │   └── operator/             # UnaryOperator<T>, BinaryOperator<T>
 │
-├── lambdas/                  # Lambda Expressions (3 files)
-│   ├── Demo1.java            # Lambda vs anonymous classes
+├── lambConstructorReferenceDemo.java
+│   └── MethodReferenceTypesDemo.javaasses
 │   ├── Demo2.java            # Functional composition
-│   └── LocalVarsDemo.java    # Effectively final concept
-│
-├── interfaces/               # Default & Static Methods (3 files)
-│   ├── DefaultMethodsDemo.java
+│   └── LocalVarsDemo.java    # Effectively final concept4 files)
+│   ├── BaseHierarchyInterface.java
+│   ├── IntermediateHierarchyInterface.java
+│   ├── LeafHierarchyInterface.java
+│   └── UnrelatedInterfaceForDiamondProblem.java
 │   ├── DefaultMethodsDemo2.java
 │   └── DefaultMethodsDemo3.java
 │
@@ -63,19 +80,30 @@ src/
 │   └── Client14.java         # Diamond problem handling
 │
 ├── optional/                 # Optional API (2 files)
-│   ├── Bike.java             # POJO for demonstrations
-│   └── OptionalDemo.java     # 9 comprehensive examples
+│   ├── Bike.java             # Comprehensive examples
 │
 ├── parallel/                 # Parallel Streams (1 file)
-│   └── streams/Demo.java     # Sequential vs parallel benchmarks
+│   └── streams/SequentialVsParallelStreamsDemo.java
 │
-└── streams/                  # Streams API (18 files)
+└── streams/                  # Streams API (17 files)
     ├── CollectionVsStreamDemo.java
     ├── FilterMapReduce.java
-    ├── StreamsFilterDemo.java
-    ├── StreamsMapDemo.java
-    ├── StreamsGroupingByDemo.java
+    ├── LimitsAndSkipDemo.java
     ├── NumericStreamsDemo.java
+    ├── StreamCountingDemo.java
+    ├── StreamFactoryMethodsDemo.java
+    ├── StreamReduceDemo.java
+    ├── StreamsFilterDemo.java
+    ├── StreamsGroupingByDemo.java
+    ├── StreamsJoiningDemo.java
+    ├── StreamsMapDemo.java
+    ├── StreamsMappingDemo.java
+    ├── StreamsMatchDemo.java
+    ├── StreamsMaxByMinByDemo.java
+    ├── StreamsMinMaxExample.java
+    ├── StreamsPartitioningDemo.java
+    ├── StreamsSumAvgDemo.java
+    └── StreamToMapDemo.java
     ├── ... and 12+ more examples
 ```
 
@@ -85,10 +113,10 @@ src/
 
 ### 📅 **DateTime Module** - Modern Date & Time Handling
 **Learn:** How to move away from legacy `java.util.Date` and `java.util.Calendar`
-
-The Java 8 Date/Time API (`java.time`) provides immutable, thread-safe date and time classes:
-
-- **LocalDate** - Date without time (e.g., 2026-01-17)
+OperationsDemo.java` - Creating, parsing, manipulating dates
+- `ZonedDateTimeWithTimezoneDemo.java` - Working with timezones and conversions
+- `CustomDateFormattingDemo.java` - Custom date formatting with patterns
+- `DurationCalculationsDemo- Date without time (e.g., 2026-01-17)
 - **LocalTime** - Time without date (e.g., 14:30:45)
 - **LocalDateTime** - Both date and time
 - **ZonedDateTime** - Date/time with timezone information
@@ -175,8 +203,8 @@ Lambda expressions allow you to treat functions as values, enabling functional p
 ```java
 (parameters) -> { body }
 (parameters) -> expression  // Single-line implicit return
-parameter -> expression     // Single parameter, parentheses optional
-() -> expression            // No parameters
+parLambdaWithRunnableDemo.java` - Lambda vs Anonymous Classes
+- `EmployeeSortingWithStreamsDemopression            // No parameters
 ```
 
 **Important Concept: Effectively Final**
@@ -203,9 +231,9 @@ Before Java 8, adding a method to an interface broke all implementing classes. D
 ```java
 public interface Vehicle {
     void start();  // Abstract method
-    
-    default void honk() {  // Can be overridden
-        System.out.println("Beep!");
+   CollectionsVsDefaultMethodsDemo.java` - Pre-Java 8 vs Java 8 approach
+- `ComparatorWithMethodReferencesDemo.java` - Organizing code with defaults
+- `DefaultAndStaticMethodsInInterfacesDemontln("Beep!");
     }
     
     static void printInfo() {  // Static utility method
@@ -234,9 +262,8 @@ Since interfaces can inherit from multiple parents and have default methods, con
 ```java
 // Diamond problem resolution
 interface Top { default void method() {} }
-interface Left extends Top { }
-interface Right extends Top { }
-
+intBaseHierarchyInterface.java`, `IntermediateHierarchyInterface.java`, `LeafHierarchyInterface.java` - Hierarchy definitions
+- `UnrelatedInterfaceForDiamondProblem.java` - Diamond problem demonstration
 class Child implements Left, Right {
     @Override
     public void method() {  // Must explicitly override
@@ -273,8 +300,8 @@ Method references are syntactic sugar for lambdas that call a single method:
 
 3. **Constructor Reference**
    ```java
-   Function<String, Student> constructor = Student::new;
-   // Equivalent to: name -> new Student(name)
+   MethodReferenceTypesDemo.java` - Lambda vs method references
+- `ConstructorReferenceDemouivalent to: name -> new Student(name)
    ```
 
 4. **Bound Method Reference**
@@ -433,7 +460,7 @@ students.parallelStream()
 
 **When to Use Parallel:**
 ✅ Large datasets (1000s+ elements)
-✅ CPU-intensive operations per element
+✅ CPU-intensive operSequentialVsParallelStreamsations per element
 ✅ No shared mutable state
 ✅ Order doesn't matter or is acceptable
 
@@ -570,21 +597,21 @@ public class StreamsGroupingByDemo {
             StudentUtils.getStudentList().stream()
                 .collect(groupingBy(Student::getGender));
         System.out.println(genderGroups);
-        
-        // More examples with explanatory headers and variable names
-    }
+        LambdaWithRunnableDemo.java` - Lambda expressions basics
+- `datetime/LocalDateOperationsDemo.java` - Modern date handling
+- `functional/consumerandpredicate/PredicateWithConsumerDemo
 }
 ```
 
 ---
 
 ## 🔍 File Inventory by Category
-
+MethodReferenceTypesDemo
 ### Beginner-Friendly Files
 - `lambdas/Demo1.java` - Lambda expressions basics
 - `datetime/LocalDateDemo2.java` - Modern date handling
-- `functional/consumerandpredicate/Demo1.java` - Consumer and Predicate basics
-- `streams/StreamsFilterDemo.java` - Basic filtering
+- `functional/consumeraUnrelatedInterfaceForDiamondProblem.java` - Diamond problem resolution
+- `parallel/streams/SequentialVsParallelStreamslterDemo.java` - Basic filtering
 
 ### Intermediate Complexity
 - `streams/StreamsMapDemo.java` - Transformations and sorting
@@ -684,7 +711,7 @@ java -cp out streams.StreamsSumAvgDemo
 - [java.time Package Documentation](https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html)
 
 ### Key Concepts
-- **Functional Programming** - Write programs as function compositions
+- **Functional Programming0* - Write programs as function compositions
 - **Immutability** - Values don't change, reducing bugs
 - **Declarative** - Describe what you want, not how to achieve it
 - **Composable** - Combine small pieces into complex solutions

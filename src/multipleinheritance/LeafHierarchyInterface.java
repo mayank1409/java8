@@ -6,9 +6,9 @@ package multipleinheritance;
  */
 public interface LeafHierarchyInterface extends IntermediateHierarchyInterface {
     /**
-     * New default method unique to Interface3.
+     * New default method unique to LeafHierarchyInterface.
      */
     default void methodC() {
-        System.out.println("Interface3.methodC()");
+        System.out.println("LeafHierarchyInterface.methodC()");
     }
 }

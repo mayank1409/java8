@@ -10,6 +10,6 @@ public interface BaseHierarchyInterface {
      * Default method: provides implementation that can be inherited or overridden.
      */
     default void methodA() {
-        System.out.println("Interface1.methodA()");
+        System.out.println("BaseHierarchyInterface.methodA()");
     }
 }

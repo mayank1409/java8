@@ -33,7 +33,7 @@ src/
 │   ├── LocalTimeOperationsDemo.java
 │   ├── PeriodCalculationsDemo.java
 │   └── ZonedDateTimeWithTimezoneDemo.java
-│1 files)
+│1 files
 │   ├── utils/
 │   │   ├── Student.java      # Entity class
 │   │   └── StudentUtils.java # Data utilities
@@ -52,37 +52,67 @@ src/
 │   ├── EmployeeSortingWithStreamsDemo.java
 │   ├── LambdaWithRunnableDemo.java
 │   └── LocalVarsDemo.java
+│   ├── consumers/
+│   │   ├── BiConsumerOperationsDemo.java
+│   │   └── ConsumerSideEffectsDemo.java
+│   ├── function/
+│   │   ├── BiFunctionTransformationDemo.java
+│   │   └── FunctionTransformationDemo.java
+│   ├── operator/
+│   │   └── UnaryOperatorTransformationDemo.java
+│   ├── predicate/
+│   │   └── PredicateFilteringDemo.java
+│   └── supplier/
 │       └── SupplierLazyEvaluationDemo.java
-│   ├── consumers/            # Consumer<T>, BiConsumer<T, U>
+│
+├── interfaces/               # Default & Static Methods (3 files)
 │   ├── CollectionsVsDefaultMethodsDemo.java
 │   ├── ComparatorWithMethodReferencesDemo.java
-│   └── DefaultAndStaticMethodsInInterfacesDemo   # Supplier<T>
-│   └── operator/             # UnaryOperator<T>, BinaryOperator<T>
+│   └── DefaultAndStaticMethodsInInterfacesDemo.java
 │
-├── lambConstructorReferenceDemo.java
-│   └── MethodReferenceTypesDemo.javaasses
-│   ├── Demo2.java            # Functional composition
-│   └── LocalVarsDemo.java    # Effectively final concept4 files)
-│   ├── BaseHierarchyInterface.java
-│   ├── IntermediateHierarchyInterface.java
-│   ├── LeafHierarchyInterface.java
-│   └── UnrelatedInterfaceForDiamondProblem.java
-│   ├── DefaultMethodsDemo2.java
-│   └── DefaultMethodsDemo3.java
+├── lambdas/                  # Lambda Expressions (3 files)
+│   ├── EmployeeSortingWithStreamsDemo.java
+│   ├── LambdaWithRunnableDemo.java
+│   └── LocalVarsDemo.java
 │
 ├── methodref/                # Method References (2 files)
-│   ├── Demo1.java            # Lambda vs method references
-│   └── Demo2.java            # Constructor references
+│   ├── ConstructorReferenceDemo.java
+│   └── MethodReferenceTypesDemo.java
 │
 ├── multipleinheritance/      # Interface Multiple Inheritance (6 files)
-│   ├── Interface1-4.java     # Hierarchy definitions
-│   ├── Client123.java        # Linear hierarchy resolution
-│   └── Client14.java         # Diamond problem handling
+│   ├── BaseHierarchyInterface.java
+│   ├── DiamondProblemResolutionDemo.java
+│   ├── IntermediateHierarchyInterface.java
+│   ├── LeafHierarchyInterface.java
+│   ├── LinearInterfaceHierarchyDemo.java
+│   └── UnrelatedInterfaceForDiamondProblem.java
 │
 ├── optional/                 # Optional API (2 files)
-│   ├── Bike.java             # Comprehensive examples
+│   ├── Bike.java
+│   └── OptionalDemo.java
 │
 ├── parallel/                 # Parallel Streams (1 file)
+│   └── streams/SequentialVsParallelStreamsDemo.java
+│
+└── streams/                  # Streams API (17 files)
+    ├── CollectionVsStreamDemo.java
+    ├── FilterMapReduce.java
+    ├── LimitsAndSkipDemo.java
+    ├── NumericStreamsDemo.java
+    ├── StreamCountingDemo.java
+    ├── StreamFactoryMethodsDemo.java
+    ├── StreamReduceDemo.java
+    ├── StreamsFilterDemo.java
+    ├── StreamsGroupingByDemo.java
+    ├── StreamsJoiningDemo.java
+    ├── StreamsMapDemo.java
+    ├── StreamsMappingDemo.java
+    ├── StreamsMatchDemo.java
+    ├── StreamsMaxByMinByDemo.java
+    ├── StreamsMinMaxExample.java
+    ├── StreamsPartitioningDemo.java
+    ├── StreamsSumAvgDemo.java
+    └── StreamToMapDemo.java
 │   └── streams/SequentialVsParallelStreamsDemo.java
 │
 └── streams/                  # Streams API (17 files)
@@ -125,10 +155,10 @@ OperationsDemo.java` - Creating, parsing, manipulating dates
 - **Period** - Date-based period (days, months, years)
 
 **Key Files & Concepts:**
-- `LocalDateDemo2.java` - Creating, parsing, manipulating dates
-- `ZonedDateTimeDemo1.java` - Working with timezones and conversions
-- `DateFormatterDemo1.java` - Custom date formatting with patterns
-- `DurationDemo1.java` - Time calculations and ChronoUnit operations
+- `LocalDateOperationsDemo.java` - Creating, parsing, manipulating dates
+- `ZonedDateTimeWithTimezoneDemo.java` - Working with timezones and conversions
+- `CustomDateFormattingDemo.java` - Custom date formatting with patterns
+- `DurationCalculationsDemo.java` - Time calculations and ChronoUnit operations
 
 **Example:**
 ```java
@@ -185,10 +215,10 @@ BiFunction<Student, Double, Void> updateCgpa = (s, cgpa) -> {
 ```
 
 **Files in this Module:**
-- `ConsumerDemo1.java` - Various consumer patterns
-- `PredicateDemo1.java` - Filtering with predicates
-- `FunctionDemo1.java` - Transformations and composition
-- `SupplierDemo1.java` - Lazy evaluation patterns
+- `ConsumerSideEffectsDemo.java` - Various consumer patterns
+- `PredicateFilteringDemo.java` - Filtering with predicates
+- `FunctionTransformationDemo.java` - Transformations and composition
+- `SupplierLazyEvaluationDemo.java` - Lazy evaluation patterns
 - `Student.java` - POJO with comprehensive Javadoc
 - `StudentUtils.java` - Reusable data utilities
 
@@ -215,8 +245,8 @@ Consumer<String> printer = s -> System.out.println(s + count);
 ```
 
 **Files:**
-- `Demo1.java` - Lambda vs Anonymous Classes
-- `Demo2.java` - Method chaining and composition
+- `LambdaWithRunnableDemo.java` - Lambda vs Anonymous Classes
+- `EmployeeSortingWithStreamsDemo.java` - Method chaining and composition
 - `LocalVarsDemo.java` - Effectively final requirements
 
 **Key Insight:** Lambdas capture variable values (or references for objects), not just use them.
@@ -243,9 +273,9 @@ public interface Vehicle {
 ```
 
 **Files:**
-- `DefaultMethodsDemo.java` - Pre-Java 8 vs Java 8 approach
-- `DefaultMethodsDemo2.java` - Organizing code with defaults
-- `DefaultMethodsDemo3.java` - Real-world patterns
+- `CollectionsVsDefaultMethodsDemo.java` - Pre-Java 8 vs Java 8 approach
+- `ComparatorWithMethodReferencesDemo.java` - Organizing code with defaults
+- `DefaultAndStaticMethodsInInterfacesDemo.java` - Real-world patterns
 
 ---
 
@@ -273,9 +303,10 @@ class Child implements Left, Right {
 ```
 
 **Files:**
-- `Interface1-4.java` - Hierarchy definitions
-- `Client123.java` - Linear chain resolution
-- `Client14.java` - Diamond problem handling
+- `BaseHierarchyInterface.java`, `IntermediateHierarchyInterface.java`, `LeafHierarchyInterface.java` - Hierarchy definitions
+- `LinearInterfaceHierarchyDemo.java` - Linear chain resolution
+- `DiamondProblemResolutionDemo.java` - Diamond problem handling
+- `UnrelatedInterfaceForDiamondProblem.java` - Diamond problem demonstration
 
 ---
 
@@ -312,8 +343,8 @@ Method references are syntactic sugar for lambdas that call a single method:
    ```
 
 **Files:**
-- `Demo1.java` - Lambda vs method references
-- `Demo2.java` - Constructor and functional interface references
+- `MethodReferenceTypesDemo.java` - Lambda vs method references
+- `ConstructorReferenceDemo.java` - Constructor and functional interface references
 
 ---
 
@@ -470,7 +501,7 @@ students.parallelStream()
 ❌ Shared mutable state (thread-safety issues)
 ❌ Ordered results critical
 
-**File:**
+**File:**SequentialVsParallelStreams
 - `parallel/streams/Demo.java` - Sequential vs parallel benchmarks with thread-safety warnings
 
 ---
@@ -486,7 +517,7 @@ students.parallelStream()
 
 1. **Clone or Download the Repository**
 ```bash
-cd /opt/mayank1409-github-projects/java8
+cd ~/github-projects/java8
 ```
 
 2. **Explore the Structure**
@@ -504,7 +535,7 @@ javac -d out src/**/*.java 2>/dev/null
 ```bash
 java -cp out streams.StreamsFilterDemo
 java -cp out optional.OptionalDemo
-java -cp out datetime.LocalDateDemo2
+java -cp out datetime.LocalDateOperationsDemo
 ```
 
 ### Compilation & Execution Details
@@ -597,32 +628,29 @@ public class StreamsGroupingByDemo {
             StudentUtils.getStudentList().stream()
                 .collect(groupingBy(Student::getGender));
         System.out.println(genderGroups);
-        LambdaWithRunnableDemo.java` - Lambda expressions basics
-- `datetime/LocalDateOperationsDemo.java` - Modern date handling
-- `functional/consumerandpredicate/PredicateWithConsumerDemo
+    }
 }
 ```
 
 ---
 
 ## 🔍 File Inventory by Category
-MethodReferenceTypesDemo
 ### Beginner-Friendly Files
-- `lambdas/Demo1.java` - Lambda expressions basics
-- `datetime/LocalDateDemo2.java` - Modern date handling
-- `functional/consumeraUnrelatedInterfaceForDiamondProblem.java` - Diamond problem resolution
-- `parallel/streams/SequentialVsParallelStreamslterDemo.java` - Basic filtering
+- `lambdas/LambdaWithRunnableDemo.java` - Lambda expressions basics
+- `datetime/LocalDateOperationsDemo.java` - Modern date handling
+- `functional/consumerandpredicate/PredicateWithConsumerDemo.java` - Consumer and Predicate basics
+- `streams/StreamsFilterDemo.java` - Basic filtering
 
 ### Intermediate Complexity
 - `streams/StreamsMapDemo.java` - Transformations and sorting
 - `optional/OptionalDemo.java` - Null-safe patterns
-- `streams/NumericStreamsDemo.java` - Specialized numeric streams
-- `methodref/Demo1.java` - Method references
+- `streams/NuMethodReferenceTypesDemoStreamsDemo.java` - Specialized numeric streams
+- `methodref/MethodReferenceTypesDemo.java` - Method references
 
 ### Advanced Topics
 - `streams/StreamsGroupingByDemo.java` - Complex aggregations
-- `multipleinheritance/Client14.java` - Diamond problem resolution
-- `parallel/streams/Demo.java` - Performance optimization
+- `multipleinheritance/UnrelatedInterfaceForDiamondProblem.java` - Diamond problem resolution
+- `parallel/streams/SequentialVsParallelStreamsDemo.java` - Performance optimization
 - `streams/FilterMapReduce.java` - Complete pattern demonstration
 
 ---
@@ -722,7 +750,7 @@ java -cp out streams.StreamsSumAvgDemo
 
 | Metric | Count |
 |--------|-------|
-| **Total Java Files** | 57 |
+| **Total Java Files** | 52 |
 | **Documented Classes** | 50+ |
 | **Code Examples** | 40+ |
 | **Lines of Code** | 2000+ |

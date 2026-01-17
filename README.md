@@ -739,7 +739,6 @@ src/streams/MyCustomStreamDemo.java
 ---
 
 **Last Updated:** January 2026  
-**Java Version:** Java 8+  
-**Status:** ✅ Complete & Production-Ready
+**Java Version:** Java 8+
 
 **Happy Learning! 🚀**

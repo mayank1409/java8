@@ -7,13 +7,16 @@ import java.time.LocalTime;
 public class NewDateTimeDemo1 {
 
     public static void main(String[] args) {
-        LocalDate localDate = LocalDate.now();
-        System.out.println("Current date " + localDate);
+        // Get current date
+        LocalDate today = LocalDate.now();
+        System.out.println("Current date: " + today);
 
-        LocalTime localTime = LocalTime.now();
-        System.out.println("Current time " + localTime);
+        // Get current time
+        LocalTime now = LocalTime.now();
+        System.out.println("Current time: " + now);
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        System.out.println("Current date and time " + localDateTime);
+        // Get current date and time combined
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        System.out.println("Current date and time: " + currentDateTime);
     }
 }

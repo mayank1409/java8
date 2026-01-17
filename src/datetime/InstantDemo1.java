@@ -6,19 +6,20 @@ import java.time.Instant;
 public class InstantDemo1 {
 
     public static void main(String[] args) {
+        // Get current instant
+        Instant now = Instant.now();
+        System.out.println("Current Instant: " + now);
 
-        Instant instant = Instant.now();
-        System.out.println(instant);
+        // Get epoch seconds from instant
+        long epochSecond = now.getEpochSecond();
+        System.out.println("Epoch seconds: " + epochSecond);
 
-        long epochSecond = instant.getEpochSecond();
-        System.out.println(epochSecond);
+        // Create instant from epoch seconds (Unix epoch: 1970-01-01)
+        Instant epochStart = Instant.ofEpochSecond(0);
+        System.out.println("Unix Epoch: " + epochStart);
 
-        Instant epochSecond1 = Instant.ofEpochSecond(0);
-        System.out.println(epochSecond1);
-
-        Instant instant1 = Instant.now();
-
-        Duration duration = Duration.between(epochSecond1, instant1);
-        System.out.println(duration.toMillis());
+        // Calculate duration between two instants
+        Duration duration = Duration.between(epochStart, now);
+        System.out.println("Duration since epoch (millis): " + duration.toMillis());
     }
 }

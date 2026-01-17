@@ -5,34 +5,38 @@ import java.time.format.DateTimeFormatter;
 
 public class DateFormatterDemo1 {
 
-    public static LocalDate parse(String date) {
-
-        LocalDate localDate;
-        if (date.contains("-")) {
-            localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
-        } else if (date.contains("|")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy|MM|dd");
-            localDate = LocalDate.parse(date, formatter);
-        } else if (date.contains("*")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy*MM*dd");
-            localDate = LocalDate.parse(date, formatter);
+    /**
+     * Parse date string using appropriate formatter based on format pattern
+     */
+    public static LocalDate parse(String dateString) {
+        if (dateString.contains("-")) {
+            return LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
+        } else if (dateString.contains("|")) {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy|MM|dd"));
+        } else if (dateString.contains("*")) {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy*MM*dd"));
         } else {
-            localDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
+            return LocalDate.parse(dateString, DateTimeFormatter.BASIC_ISO_DATE);
         }
-        return localDate;
     }
 
+    /**
+     * Format LocalDate using provided DateTimeFormatter
+     */
     public static String format(LocalDate localDate, DateTimeFormatter formatter) {
         return localDate.format(formatter);
     }
 
     public static void main(String[] args) {
-        System.out.println(parse("2023-09-14"));
-        System.out.println(parse("20230914"));
-        System.out.println(parse("2023|09|14"));
-        System.out.println(parse("2023*09*14"));
-        System.out.println(format(LocalDate.now(), DateTimeFormatter.ofPattern("yyyy*MM*dd")));
-        System.out.println(format(LocalDate.now(), DateTimeFormatter.ISO_DATE));
-        System.out.println(format(LocalDate.now(), DateTimeFormatter.BASIC_ISO_DATE));
+        LocalDate now = LocalDate.now();
+        
+        System.out.println("Parse ISO Date: " + parse("2023-09-14"));
+        System.out.println("Parse Basic ISO Date: " + parse("20230914"));
+        System.out.println("Parse Pipe Separator: " + parse("2023|09|14"));
+        System.out.println("Parse Asterisk Separator: " + parse("2023*09*14"));
+        
+        System.out.println("Format with asterisk: " + format(now, DateTimeFormatter.ofPattern("yyyy*MM*dd")));
+        System.out.println("Format ISO Date: " + format(now, DateTimeFormatter.ISO_DATE));
+        System.out.println("Format Basic ISO Date: " + format(now, DateTimeFormatter.BASIC_ISO_DATE));
     }
 }
